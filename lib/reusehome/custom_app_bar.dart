@@ -7,24 +7,24 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       title: Padding(
-        padding: const EdgeInsets.only(top: 8.0), // Adjust top padding if needed
+        padding: const EdgeInsets.symmetric(vertical: 10.0), // Adjust top and bottom padding
         child: Text.rich(
           TextSpan(
             children: [
               TextSpan(
-                text: "Daily Grocery\n", // Line break to move "Food" below
+                text: "Daily\n", // Line break to move "Grocery Food" below
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   color: Colors.black,
-                  fontSize: 24, // Larger size for "Daily Grocery"
+                  fontSize: 24, // Adjusted size for "Daily"
                 ),
               ),
               TextSpan(
-                text: "Food", // "Food" appears below
+                text: "Grocery Food", // "Grocery Food" appears below
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   color: Colors.black,
-                  fontSize: 27, // Slightly smaller size for "Food"
+                  fontSize: 24, // Adjusted size for "Grocery Food"
                 ),
               ),
             ],
@@ -39,11 +39,10 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           onPressed: () {},
         ),
       ],
-      elevation: 0, // Optional: Removes AppBar shadow
+      elevation: 0, // Removes AppBar shadow
     );
   }
 
-  // Increase the height of the AppBar to accommodate two lines of text
   @override
-  Size get preferredSize => const Size.fromHeight(80); // Adjust height to fit both lines
+  Size get preferredSize => const Size.fromHeight(75); // Increased height to fit both lines without clipping
 }

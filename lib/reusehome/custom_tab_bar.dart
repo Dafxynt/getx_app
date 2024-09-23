@@ -5,21 +5,24 @@ class CustomTabBar extends StatelessWidget {
   final Color selectedColor;
   final Color unselectedColor;
   final Color indicatorColor;
+  final TabController controller;
 
   const CustomTabBar({
+    Key? key,
     required this.tabs,
-    this.selectedColor = Colors.white,
-    this.unselectedColor = Colors.black,
-    this.indicatorColor = Colors.black,
-    super.key,
-  });
+    required this.selectedColor,
+    required this.unselectedColor,
+    required this.indicatorColor,
+    required this.controller,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.centerLeft,
-      padding: EdgeInsets.zero,  // Ensure no extra padding
+      padding: EdgeInsets.zero, // Ensure no extra padding
       child: TabBar(
+        controller: controller,
         isScrollable: true,
         labelColor: selectedColor,
         unselectedLabelColor: unselectedColor,
@@ -31,12 +34,13 @@ class CustomTabBar extends StatelessWidget {
             .map(
               (tabText) => Tab(
             child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16),  // Padding for each tab
+              padding: EdgeInsets.symmetric(horizontal: 16), // Padding for each tab
               child: Text(tabText),
             ),
           ),
-        ).toList(),
-        tabAlignment: TabAlignment.start,  // Align tabs to the start
+        )
+            .toList(),
+        tabAlignment: TabAlignment.start, // Align tabs to the start
       ),
     );
   }

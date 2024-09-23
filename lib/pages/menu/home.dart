@@ -8,7 +8,7 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 4, // Number of categories
+      length: 5, // Number of categories
       child: Scaffold(
         appBar: const CustomAppBar(), // Use CustomAppBar
         body: Padding(
