@@ -19,7 +19,7 @@ class ProductCard extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(22),
         boxShadow: [
           BoxShadow(
             color: Colors.grey.withOpacity(0.2),
@@ -34,11 +34,14 @@ class ProductCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Product Image
+            // Product Image with Rounded Corners
             Expanded(
-              child: Image.network(
-                imageUrl,
-                fit: BoxFit.cover,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(15),
+                child: Image.network(
+                  imageUrl,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
             SizedBox(height: 8),

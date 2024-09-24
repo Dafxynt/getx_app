@@ -18,9 +18,9 @@ class _CustomTabViewState extends State<CustomTabView> with SingleTickerProvider
   late TabController _tabController;
 
   final List<String> titles = [
-    'Popular Fruits',
+    'Popular Menu',
     'Fruits',
-    'Fast-food',
+    'Food',
     'Vegetables',
     'Drinks'
   ];
@@ -42,7 +42,7 @@ class _CustomTabViewState extends State<CustomTabView> with SingleTickerProvider
     return Column(
       children: [
         CustomTabBar(
-          tabs: ['Popular', 'Fruits', 'Fast-food', 'Vegetables', 'Drinks'],
+          tabs: ['Popular', 'Fruits', 'Food', 'Vegetables', 'Drinks'],
           selectedColor: Colors.white,
           unselectedColor: Colors.black,
           indicatorColor: Colors.black,
@@ -85,7 +85,7 @@ class _CustomTabViewState extends State<CustomTabView> with SingleTickerProvider
             children: [
               ProductGrid(products: popular),
               ProductGrid(products: fruits),
-              ProductGrid(products: fastfoods),
+              ProductGrid(products: foods),
               ProductGrid(products: vegetables),
               ProductGrid(products: Drinks),
             ],

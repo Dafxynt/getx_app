@@ -7,29 +7,29 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       title: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 10.0), // Adjust top and bottom padding
+        padding: const EdgeInsets.symmetric(vertical: 10.0),
         child: Text.rich(
           TextSpan(
             children: [
               TextSpan(
-                text: "Daily\n", // Line break to move "Grocery Food" below
+                text: "Daily\n",
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   color: Colors.black,
-                  fontSize: 24, // Adjusted size for "Daily"
+                  fontSize: 24,
                 ),
               ),
               TextSpan(
-                text: "Grocery Food", // "Grocery Food" appears below
+                text: "Food App",
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   color: Colors.black,
-                  fontSize: 24, // Adjusted size for "Grocery Food"
+                  fontSize: 24,
                 ),
               ),
             ],
           ),
-          textAlign: TextAlign.left, // Align text to the left
+          textAlign: TextAlign.left,
         ),
       ),
       backgroundColor: Colors.white,
