@@ -34,7 +34,7 @@ List<Product> popular = [
   ),
   Product(
     imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTND7TNcOODTpYtKSXZ2GSk-zdPojICakO4Rw&s',
-    name: ' Ca Brocoli',
+    name: 'Ca Brocoli',
     calories: '400 cal',
     price: '\$8.49',
   ),
