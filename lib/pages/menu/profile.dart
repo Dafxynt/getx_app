@@ -10,8 +10,32 @@ class Profile extends StatelessWidget {
         title: Text("Profile"),
       ),
       body: Center(
-        child: Container(
-          child: Text("ini profil page"),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            CircleAvatar(
+              radius: 50,
+              backgroundImage: AssetImage('assets/images/profile_picture.jpg'),
+            ),
+            SizedBox(height: 16),
+            Text(
+              'Shane',
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(height: 8),
+            Text(
+              'shane.sine@gmail.com',
+              style: TextStyle(
+                fontSize: 16,
+              ),
+            ),
+            SizedBox(height: 32),
+            // Add other profile information here, such as a bio, interests, etc.
+          ],
         ),
       ),
     );
