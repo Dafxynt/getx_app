@@ -27,7 +27,7 @@ class homepage extends StatelessWidget {
             BottomNavigationBarItem(
                 icon: Icon(Icons.home_outlined), label: "Home"),
             BottomNavigationBarItem(
-                icon: Icon(Icons.settings_outlined), label: "Setting"),
+                icon: Icon(Icons.shopping_cart_outlined), label: "Order"),
             BottomNavigationBarItem(
                 icon: Icon(Icons.person_2_outlined), label: "Profile"),
           ],

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:app_getx/reuseprofile/profileHeader.dart';
+import 'package:app_getx/reuseprofile/profileoption.dart';
+import 'package:app_getx/reuseprofile/logoutbutton.dart';
 
 class Profile extends StatelessWidget {
-  const Profile({super.key});
+  const Profile({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -9,34 +12,71 @@ class Profile extends StatelessWidget {
       appBar: AppBar(
         title: Text("Profile"),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            CircleAvatar(
-              radius: 50,
-              backgroundImage: AssetImage('assets/images/profile_picture.jpg'),
-            ),
-            SizedBox(height: 16),
-            Text(
-              'Shane',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          return Column(
+            children: [
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      ProfileHeader(
+                        imageUrl: 'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_1280.png',
+                        name: 'Irawan Daffa',
+                        email: 'irawandaffa910@gmail.com',
+                      ),
+                      // Profile options
+                      ProfileOption(
+                        icon: Icons.account_circle,
+                        title: 'Account Information',
+                        onTap: () {
+                          // Handle navigation or action
+                        },
+                      ),
+                      ProfileOption(
+                        icon: Icons.location_on,
+                        title: 'Delivery Address',
+                        onTap: () {
+                          // Handle navigation or action
+                        },
+                      ),
+                      ProfileOption(
+                        icon: Icons.payment,
+                        title: 'Payment Method',
+                        onTap: () {
+                          // Handle navigation or action
+                        },
+                      ),
+                      ProfileOption(
+                        icon: Icons.lock,
+                        title: 'Password',
+                        onTap: () {
+                          // Handle navigation or action
+                        },
+                      ),
+                      ProfileOption(
+                        icon: Icons.people,
+                        title: 'Reference Friends',
+                        onTap: () {
+                          // Handle navigation or action
+                        },
+                      ),
+                    ],
+                  ),
+                ),
               ),
-            ),
-            SizedBox(height: 8),
-            Text(
-              'shane.sine@gmail.com',
-              style: TextStyle(
-                fontSize: 16,
+              // Logout button fixed at the bottom
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: LogoutButton(
+                  onTap: () {
+                    // Handle log out action
+                  },
+                ),
               ),
-            ),
-            SizedBox(height: 32),
-            // Add other profile information here, such as a bio, interests, etc.
-          ],
-        ),
+            ],
+          );
+        },
       ),
     );
   }
