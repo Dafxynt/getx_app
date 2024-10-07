@@ -1,4 +1,4 @@
-import 'package:app_getx/Controller/BottomNav_Controller.dart';
+import 'package:app_getx/controller/bottomNav_Controller.dart';
 import 'package:app_getx/pages/menu/home.dart';
 import 'package:app_getx/pages/menu/pesan.dart';
 import 'package:app_getx/pages/menu/profile.dart';
