@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:app_getx/reuse_order/status_buttons.dart';
-import 'package:app_getx/reuse_order/Order_list.dart';
+import 'package:app_getx/reuse_order/Order_list.dart'; // Ensure this import is correct
 
 class Pesan extends StatefulWidget {
   const Pesan({super.key});
@@ -42,56 +42,11 @@ class _PesanState extends State<Pesan> {
           ),
           const SizedBox(height: 16),
           Expanded(
-            child: OrderList(
+            child: OrderListPage( // Correctly using the updated constructor
               statusFilter: selectedStatus,
             ),
           ),
         ],
-      ),
-    );
-  }
-}
-
-class StatusButtons extends StatelessWidget {
-  final String selectedStatus;
-  final Function(String) onStatusChange;
-
-  const StatusButtons({
-    Key? key,
-    required this.selectedStatus,
-    required this.onStatusChange,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10.0),
-      child: SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        child: Row(
-          children: [
-            StatusButton(
-              text: 'All Order',
-              isSelected: selectedStatus == 'All Order',
-              onTap: () => onStatusChange('All Order'),
-            ),
-            StatusButton(
-              text: 'Pending',
-              isSelected: selectedStatus == 'Pending',
-              onTap: () => onStatusChange('Pending'),
-            ),
-            StatusButton(
-              text: 'Processing',
-              isSelected: selectedStatus == 'Processing',
-              onTap: () => onStatusChange('Processing'),
-            ),
-            StatusButton(
-              text: 'Delivered',
-              isSelected: selectedStatus == 'Delivered',
-              onTap: () => onStatusChange('Delivered'),
-            ),
-          ],
-        ),
       ),
     );
   }

@@ -1,76 +1,74 @@
+// Order_list.dart
 import 'package:flutter/material.dart';
-import 'order_card.dart';
+import 'package:app_getx/Database/DatabaseHelper.dart';
 import 'package:app_getx/reuse_order/item_order.dart';
 
-class OrderList extends StatelessWidget {
-  final String statusFilter;
+class OrderListPage extends StatefulWidget {
+  final String statusFilter; // Add this line
 
-  const OrderList({Key? key, required this.statusFilter}) : super(key: key);
+  // Update the constructor to accept the status filter
+  const OrderListPage({Key? key, required this.statusFilter}) : super(key: key);
+
+  @override
+  _OrderListPageState createState() => _OrderListPageState();
+}
+
+class _OrderListPageState extends State<OrderListPage> {
+  late Future<List<OrderItem>> _orders;
+
+  @override
+  void initState() {
+    super.initState();
+    _orders = DatabaseHelper().getOrders();
+  }
+
+  Future<void> _refreshOrders() async {
+    setState(() {
+      _orders = DatabaseHelper().getOrders();
+    });
+  }
+
+  Future<void> _cancelOrder(int id) async {
+    await DatabaseHelper().deleteOrder(id);
+    _refreshOrders();
+  }
 
   @override
   Widget build(BuildContext context) {
-    final orders = [
-      OrderItem(
-        image: 'https://asset.kompas.com/crops/-5X_rKKBV8FMztPN8fkQkFklwrk=/0x0:4295x2863/1200x800/data/photo/2023/08/28/64ec406fe403c.jpg',
-        name: 'Apple',
-        price: '\$14.75',
-        date: '20 sep 2023',
-        status: 'Delivered',
-      ),
-      OrderItem(
-        image: 'https://yoona.id/wp-content/uploads/2023/02/kalori-strawberry.jpg',
-        name: 'Strawberry',
-        price: '\$12.75',
-        date: '20 sep 2023',
-        status: 'Delivered',
-      ),
-      OrderItem(
-        image: 'https://eorder-bppbj.jakarta.go.id/web/image/product.image/1990/image?unique=65ed787',
-        name: 'Pahe Ayam',
-        price: '\$22.68',
-        date: '20 sep 2023',
-        status: 'Pending',
-      ),
-      OrderItem(
-        image: 'https://www.pureearete.com/wp-content/uploads/2020/06/banana_m.jpg',
-        name: 'Banana',
-        price: '\$11.75',
-        date: '20 sep 2023',
-        status: 'Processing',
-      ),
-      OrderItem(
-        image: 'https://guentercoffee.com/cdn/shop/articles/blog-header-cappuccino-zubereiten-anleitung.jpg?v=1708588875&width=1440',
-        name: 'Cappucino',
-        price: '\$11.75',
-        date: '20 sep 2023',
-        status: 'Processing',
-      ),
-      OrderItem(
-        image: 'https://www.astronauts.id/blog/wp-content/uploads/2023/03/Daftar-Resep-Es-Buah-yang-Mudah-dan-Enak.jpg',
-        name: 'Es Buah',
-        price: '\$11.75',
-        date: '20 sep 2023',
-        status: 'Processing',
-      ),
-    ];
+    return Scaffold(
+      appBar: AppBar(title: Text('My Orders')),
+      body: FutureBuilder<List<OrderItem>>(
+        future: _orders,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            return Center(child: Text('Error fetching orders'));
+          } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+            return Center(child: Text('No orders yet'));
+          } else {
+            final orders = snapshot.data!.where((order) {
+              // Filter orders based on status
+              return widget.statusFilter == 'All Order' || order.status == widget.statusFilter;
+            }).toList();
 
-    // Filter item berdasarkan status yang dipilih
-    final filteredOrders = statusFilter == 'All Order'
-        ? orders
-        : orders.where((order) => order.status == statusFilter).toList();
-
-    return ListView.builder(
-      itemCount: filteredOrders.length,
-      itemBuilder: (context, index) {
-        final order = filteredOrders[index];
-        return OrderCard(
-          image: order.image,
-          name: order.name,
-          price: order.price,
-          date: order.date,
-          status: order.status,
-        );
-      },
+            return ListView.builder(
+              itemCount: orders.length,
+              itemBuilder: (context, index) {
+                final order = orders[index];
+                return ListTile(
+                  title: Text('${order.name} (x${order.quantity})'),
+                  subtitle: Text('Price: ${order.price}, Status: ${order.status}'),
+                  trailing: IconButton(
+                    icon: Icon(Icons.cancel),
+                    onPressed: () => _cancelOrder(order.id!),
+                  ),
+                );
+              },
+            );
+          }
+        },
+      ),
     );
   }
 }

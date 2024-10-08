@@ -1,4 +1,6 @@
+import 'package:app_getx/reuse_order/ProductDescriptionPage.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class ProductCard extends StatelessWidget {
   final String imageUrl;
@@ -71,7 +73,15 @@ class ProductCard extends StatelessWidget {
                 IconButton(
                   icon: Icon(Icons.add),
                   color: Colors.orange,
-                  onPressed: () {},
+                  onPressed: () {
+                    // Navigate to the product description page
+                    Get.to(() => ProductDescriptionPage(
+                      imageUrl: imageUrl,
+                      productName: productName,
+                      description: "Delicious $productName with $calories calories.",
+                      price: price,
+                    ));
+                  },
                 ),
               ],
             ),

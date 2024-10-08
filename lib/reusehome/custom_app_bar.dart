@@ -6,43 +6,31 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      backgroundColor: Colors.white,
+      elevation: 0, // Removes AppBar shadow
       title: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 10.0),
-        child: Text.rich(
-          TextSpan(
-            children: [
-              TextSpan(
-                text: "Daily\n",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                  fontSize: 24,
-                ),
+        padding: const EdgeInsets.symmetric(horizontal: 45.0),
+        child: Container(
+          width: 250, // Set a fixed width for the search field
+          child: TextField(
+            decoration: InputDecoration(
+              hintText: 'Search...',
+              hintStyle: TextStyle(color: Colors.grey),
+              prefixIcon: Icon(Icons.search, color: Colors.grey), // Add the search icon here
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(20.0),
+                borderSide: BorderSide(color: Colors.grey),
               ),
-              TextSpan(
-                text: "Food App",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                  fontSize: 24,
-                ),
-              ),
-            ],
+              filled: true,
+              fillColor: Colors.white,
+              contentPadding: EdgeInsets.symmetric(horizontal: 16.0),
+            ),
           ),
-          textAlign: TextAlign.left,
         ),
       ),
-      backgroundColor: Colors.white,
-      actions: [
-        IconButton(
-          icon: Icon(Icons.search, color: Colors.black),
-          onPressed: () {},
-        ),
-      ],
-      elevation: 0, // Removes AppBar shadow
     );
   }
 
   @override
-  Size get preferredSize => const Size.fromHeight(75); // Increased height to fit both lines without clipping
+  Size get preferredSize => const Size.fromHeight(75); // Set the preferred height
 }

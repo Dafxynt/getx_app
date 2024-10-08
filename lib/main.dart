@@ -1,11 +1,13 @@
-import 'package:app_getx/pages/homepage.dart';
+import 'package:flutter/material.dart';
+import 'package:app_getx/pages/Homepage.dart';
 import 'package:app_getx/pages/LoginPage.dart';
 import 'package:app_getx/Binding/LoginBinding.dart';
+import 'package:app_getx/controller/ordercontroller.dart';
 import 'package:app_getx/controller/bottomNav_Controller.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 void main() {
+  Get.put(OrderController());
   runApp(const MyApp());
 }
 
@@ -15,6 +17,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      debugShowCheckedModeBanner: false,
       initialRoute: '/login',
       getPages: [
         GetPage(
@@ -24,7 +27,7 @@ class MyApp extends StatelessWidget {
         ),
         GetPage(
           name: '/home',
-          page: () => const homepage(),
+          page: () => const Homepage(),
           binding: BindingsBuilder(() {
             Get.lazyPut(() => BottomNavCtr());
           }),

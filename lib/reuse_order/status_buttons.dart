@@ -1,5 +1,35 @@
 import 'package:flutter/material.dart';
 
+class StatusButtons extends StatelessWidget {
+  final String selectedStatus;
+  final Function(String) onStatusChange;
+
+  const StatusButtons({
+    Key? key,
+    required this.selectedStatus,
+    required this.onStatusChange,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10.0),
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Row(
+          children: [
+            StatusButton(
+              text: 'All Order',
+              isSelected: selectedStatus == 'All Order',
+              onTap: () => onStatusChange('All Order'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
 class StatusButton extends StatelessWidget {
   final String text;
   final bool isSelected;
@@ -8,7 +38,7 @@ class StatusButton extends StatelessWidget {
   const StatusButton({
     Key? key,
     required this.text,
-    this.isSelected = false,
+    required this.isSelected,
     required this.onTap,
   }) : super(key: key);
 
@@ -17,17 +47,16 @@ class StatusButton extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        margin: EdgeInsets.symmetric(horizontal: 6),
         padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        margin: EdgeInsets.symmetric(horizontal: 4),
         decoration: BoxDecoration(
-          color: isSelected ? Colors.black : Colors.grey[300],
           borderRadius: BorderRadius.circular(20),
+          color: isSelected ? Colors.blue : Colors.grey[300],
         ),
         child: Text(
           text,
           style: TextStyle(
             color: isSelected ? Colors.white : Colors.black,
-            fontWeight: FontWeight.bold,
           ),
         ),
       ),

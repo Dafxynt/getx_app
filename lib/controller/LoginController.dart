@@ -9,9 +9,9 @@ class LoginController extends GetxController {
     final email = emailController.text;
     final password = passwordController.text;
 
-    if (email == 'admin@example.com' && password == '123') {
+    if (email == 'admin@gmail.com' && password == '123') {
       Get.snackbar('Login Success', 'You have successfully logged in.');
-      Get.offAllNamed('/home');  //ke halaman home setelah login
+      Get.offAllNamed('/home');
     } else {
       Get.snackbar('Login Failed', 'Invalid email or password.');
     }
