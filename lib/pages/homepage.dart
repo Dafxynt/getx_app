@@ -1,7 +1,6 @@
 import 'package:app_getx/controller/bottomNav_Controller.dart';
 import 'package:app_getx/pages/menu/home.dart';
 import 'package:app_getx/pages/menu/pesan.dart';
-import 'package:app_getx/reuse_order/Order_list.dart';
 import 'package:app_getx/pages/menu/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -21,15 +20,6 @@ class Homepage extends StatelessWidget {
       return Scaffold(
         appBar: AppBar(
           title: Text('Daily Food App'), // Set your app bar title here
-          actions: [
-            ElevatedButton(
-              onPressed: () {
-                // Here you should provide the status filter, for example, 'All Order'
-                Get.to(OrderListPage(statusFilter: 'All Order'));
-              },
-              child: Text('View Orders'),
-            ),
-          ],
         ),
         body: menus[bottomNavCtr.selectedIndex.value],
         bottomNavigationBar: BottomNavigationBar(

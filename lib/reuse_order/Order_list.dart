@@ -1,12 +1,10 @@
-// Order_list.dart
 import 'package:flutter/material.dart';
 import 'package:app_getx/Database/DatabaseHelper.dart';
 import 'package:app_getx/reuse_order/item_order.dart';
 
 class OrderListPage extends StatefulWidget {
-  final String statusFilter; // Add this line
+  final String statusFilter;
 
-  // Update the constructor to accept the status filter
   const OrderListPage({Key? key, required this.statusFilter}) : super(key: key);
 
   @override
@@ -19,7 +17,7 @@ class _OrderListPageState extends State<OrderListPage> {
   @override
   void initState() {
     super.initState();
-    _orders = DatabaseHelper().getOrders();
+    _refreshOrders();
   }
 
   Future<void> _refreshOrders() async {
@@ -33,10 +31,31 @@ class _OrderListPageState extends State<OrderListPage> {
     _refreshOrders();
   }
 
+  Future<bool> _showConfirmationDialog(BuildContext context) {
+    return showDialog<bool>(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text('Confirm Deletion'),
+          content: Text('Are you sure you want to delete this order?'),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(false),
+              child: Text('No'),
+            ),
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(true),
+              child: Text('Yes'),
+            ),
+          ],
+        );
+      },
+    ).then((value) => value ?? false);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('My Orders')),
       body: FutureBuilder<List<OrderItem>>(
         future: _orders,
         builder: (context, snapshot) {
@@ -45,10 +64,9 @@ class _OrderListPageState extends State<OrderListPage> {
           } else if (snapshot.hasError) {
             return Center(child: Text('Error fetching orders'));
           } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return Center(child: Text('No orders yet'));
+            return Center(child: Text('No orders'));
           } else {
             final orders = snapshot.data!.where((order) {
-              // Filter orders based on status
               return widget.statusFilter == 'All Order' || order.status == widget.statusFilter;
             }).toList();
 
@@ -59,9 +77,15 @@ class _OrderListPageState extends State<OrderListPage> {
                 return ListTile(
                   title: Text('${order.name} (x${order.quantity})'),
                   subtitle: Text('Price: ${order.price}, Status: ${order.status}'),
+                  leading: Image.network(order.image),
                   trailing: IconButton(
-                    icon: Icon(Icons.cancel),
-                    onPressed: () => _cancelOrder(order.id!),
+                    icon: Icon(Icons.delete),
+                    onPressed: () async {
+                      bool confirm = await _showConfirmationDialog(context);
+                      if (confirm) {
+                        _cancelOrder(order.id!);
+                      }
+                    },
                   ),
                 );
               },
@@ -70,5 +94,10 @@ class _OrderListPageState extends State<OrderListPage> {
         },
       ),
     );
+  }
+
+  // Tambahkan fungsi untuk refresh dari halaman Search
+  void refreshFromSearch() {
+    _refreshOrders();
   }
 }

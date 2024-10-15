@@ -1,4 +1,3 @@
-
 class OrderItem {
   int? id; // Make id nullable since it will be assigned by the database
   final String name;

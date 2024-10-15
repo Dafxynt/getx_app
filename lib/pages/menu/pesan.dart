@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:app_getx/reuse_order/status_buttons.dart';
-import 'package:app_getx/reuse_order/Order_list.dart'; // Ensure this import is correct
+import 'package:app_getx/reuse_order/Order_list.dart';
+import 'package:app_getx/Database/DatabaseHelper.dart';
 
 class Pesan extends StatefulWidget {
   const Pesan({super.key});
@@ -18,20 +19,19 @@ class _PesanState extends State<Pesan> {
     });
   }
 
+  Future<void> _refreshOrders() async {
+    setState(() {
+      // You can update the list of orders or any necessary state here
+    });
+  }
+
+  void _startSearch(BuildContext context) async {
+    final orders = await DatabaseHelper().getOrders();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Order"),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.search),
-            onPressed: () {
-              // Add search functionality
-            },
-          ),
-        ],
-      ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -42,7 +42,7 @@ class _PesanState extends State<Pesan> {
           ),
           const SizedBox(height: 16),
           Expanded(
-            child: OrderListPage( // Correctly using the updated constructor
+            child: OrderListPage(
               statusFilter: selectedStatus,
             ),
           ),
