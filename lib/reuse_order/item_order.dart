@@ -1,5 +1,5 @@
 class OrderItem {
-  int? id; // Make id nullable since it will be assigned by the database
+  final int? id; // Make id nullable since it will be assigned by the database
   final String name;
   final String image;
   final String price;
@@ -7,7 +7,7 @@ class OrderItem {
   final String status;
 
   OrderItem({
-    this.id,
+    this.id, // Optional, since it may be null for new items
     required this.name,
     required this.image,
     required this.price,
@@ -15,6 +15,7 @@ class OrderItem {
     required this.status,
   });
 
+  // Convert OrderItem to Map
   Map<String, dynamic> toMap() {
     return {
       'id': id,
@@ -26,14 +27,15 @@ class OrderItem {
     };
   }
 
+  // Create OrderItem from Map
   factory OrderItem.fromMap(Map<String, dynamic> map) {
     return OrderItem(
-      id: map['id'],
-      name: map['name'],
-      image: map['image'],
-      price: map['price'],
-      quantity: map['quantity'],
-      status: map['status'],
+      id: map['id'] as int?, // Use `as` to ensure type is correct
+      name: map['name'] as String,
+      image: map['image'] as String,
+      price: map['price'] as String,
+      quantity: map['quantity'] as int,
+      status: map['status'] as String,
     );
   }
 }

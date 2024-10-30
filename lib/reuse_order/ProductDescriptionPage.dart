@@ -50,7 +50,7 @@ class _ProductDescriptionPageState extends State<ProductDescriptionPage> {
       appBar: AppBar(
         title: Text(widget.productName),
       ),
-      body: Padding(
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -104,7 +104,7 @@ class _ProductDescriptionPageState extends State<ProductDescriptionPage> {
                 ),
               ],
             ),
-            const Spacer(),
+            const SizedBox(height: 24), // Spacer untuk menghindari overflow di bagian bawah
             Center(
               child: ElevatedButton(
                 onPressed: _addOrderToDB,

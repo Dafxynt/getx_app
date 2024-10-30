@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:app_getx/reusehome/custom_app_bar.dart';  // Import your CustomAppBar
-import 'package:app_getx/reusehome/custom_tab_view.dart'; // Import your CustomTabView
-
+import 'package:app_getx/reusehome/custom_tab_view.dart';
 class Home extends StatelessWidget {
   const Home({super.key});
 
@@ -10,7 +8,6 @@ class Home extends StatelessWidget {
     return DefaultTabController(
       length: 5, // Number of categories
       child: Scaffold(
-        appBar: const CustomAppBar(), // Use CustomAppBar
         body: Padding(
           padding: const EdgeInsets.all(14.0),
           child: const CustomTabView(), // Use CustomTabView

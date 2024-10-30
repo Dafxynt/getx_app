@@ -10,22 +10,55 @@ class Homepage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Connect UI to controller
+    // Hubungkan UI dengan controller
     final BottomNavCtr bottomNavCtr = Get.put(BottomNavCtr());
 
-    // List of menu pages
+    // List halaman menu
     final List<Widget> menus = [Home(), Pesan(), Profile()];
 
     return Obx(() {
       return Scaffold(
         appBar: AppBar(
-          title: Text('Daily Food App'), // Set your app bar title here
+          backgroundColor: Colors.white,
+          elevation: 0, // Menghilangkan bayangan AppBar
+          title: Row(
+            children: [
+              const Text(
+                'Daily Food App',
+                style: TextStyle(
+                  color: Colors.black, // Warna teks judul
+                  fontSize: 20.0, // Ukuran font judul
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(width: 20), // Jarak antara judul dan search bar
+              Expanded(
+                child: Container(
+                  height: 40, // Tinggi search field
+                  child: TextField(
+                    decoration: InputDecoration(
+                      hintText: 'Search...',
+                      hintStyle: const TextStyle(color: Colors.grey),
+                      prefixIcon: const Icon(Icons.search, color: Colors.grey),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20.0),
+                        borderSide: const BorderSide(color: Colors.grey),
+                      ),
+                      filled: true,
+                      fillColor: Colors.white,
+                      contentPadding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
         body: menus[bottomNavCtr.selectedIndex.value],
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: bottomNavCtr.selectedIndex.value,
           onTap: bottomNavCtr.changeIndexMenu,
-          items: [
+          items: const [
             BottomNavigationBarItem(
               icon: Icon(Icons.home_outlined),
               label: "Home",
